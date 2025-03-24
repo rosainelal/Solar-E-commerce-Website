@@ -1,0 +1,58 @@
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #f0f0f0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+#chat-box {
+    height: 300px;
+    overflow-y: scroll;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 15px;
+    background-image: url('https://www.cnet.com/a/img/resize/1998b6758a833ccf3d4e955f0ac0339d580e1617/hub/2022/04/14/3d00f4aa-ea1d-43fb-a937-92829aec60b8/gettyimages-1335905739-1.jpg?auto=webp&fit=crop&height=675&width=1200'); /* Add your background image URL here */
+    background-size: cover;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"] {
+    width: calc(100% - 70px);
+    padding: 12px;
+    margin-right: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 20px;
+    font-size: 16px;
+    color: #333333;
+}
+
+button {
+    padding: 12px 25px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.bot-message {
+    background-color: #d4edda;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.user-message {
+    background-color: #cce5ff;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}

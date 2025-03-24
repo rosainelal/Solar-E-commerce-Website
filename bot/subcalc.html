@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Panel Subsidy Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        input[type="number"], button {
+            margin: 10px 0;
+            padding: 10px;
+            width: calc(100% - 20px);
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input[type="number"]::placeholder {
+            color: #999;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Solar Panel Subsidy Calculator</h2>
+        <label for="cost">Cost per panel:</label>
+        <input type="number" id="cost" placeholder="Enter cost per panel">
+        <label for="panels">Number of panels above 1 kW:</label>
+        <input type="number" id="panels" placeholder="Enter number of panels">
+        <button onclick="calculateSubsidy()">Calculate Subsidy</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateSubsidy() {
+            const panelCost = parseFloat(document.getElementById('cost').value);
+            const panelsAbove1kW = parseFloat(document.getElementById('panels').value);
+
+            if (isNaN(panelCost) || isNaN(panelsAbove1kW)) {
+                document.getElementById('result').innerText = 'Please enter valid numbers';
+                return;
+            }
+
+            const subsidyPercentage = 40; // Subsidy percentage for panels above 1 kW
+
+            // Calculate total cost of panels above 1 kW
+            const totalCost = panelsAbove1kW * panelCost;
+
+            // Calculate subsidy amount
+            const subsidyAmount = (subsidyPercentage / 100) * totalCost;
+
+            document.getElementById('result').innerText = `Subsidy for ${panelsAbove1kW} panels above 1 kW: ${subsidyAmount.toFixed(2)} currency`;
+        }
+    </script>
+</body>
+</html>

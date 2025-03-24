@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="productstyle.css">
+</head>
+<body class="">
+    
+    <div class="container">
+        <header>
+            <h1>Products Page</h1>
+            <div class="shopping">
+                <img src="image/shopping.svg">
+                <span class="quantity">0</span>
+            </div>
+        </header>
+
+        <div class="list">
+          
+        </div>
+    </div>
+    <div class="card">
+        <h1>Card</h1>
+        <ul class="listCard">
+        </ul>
+        <div class="checkOut">
+            <div class="total" id="totalAmount">
+                <a href="address.html">Rs-0</a>
+            </div>
+            <div class="closeShopping">Close</div>
+        </div>
+    </div>
+
+    <script>
+        let openShopping = document.querySelector('.shopping');
+        let closeShopping = document.querySelector('.closeShopping');
+        let list = document.querySelector('.list');
+        let listCard = document.querySelector('.listCard');
+        let body = document.querySelector('body');
+        let total = document.querySelector('#totalAmount');
+        let quantity = document.querySelector('.quantity');
+
+        openShopping.addEventListener('click', ()=>{
+            body.classList.add('active');
+        })
+        closeShopping.addEventListener('click', ()=>{
+            body.classList.remove('active');
+        })
+
+        let products = [
+            {
+                id: 1,
+                name: 'Newpowa Bifacial 100W 12V Solar Panels ',
+                image: '1.jpg',
+                price: 4999.81,
+                descriptionPage: 'description1.html'
+            },
+            {
+                id: 2,
+                name: 'SOLPERK Solar Panel 100 Watt 12 Volt, Solar Panel',
+                image: '2.jpg',
+                price: 9583.73,
+                descriptionPage: 'description2.html'
+            },
+            {
+                id: 3,
+                name: 'Renogy 2000W Pure Sine Wave Inverter 12V DC to 120V',
+                image: '3.jpg',
+                price: 22609,
+                descriptionPage: 'description3.html'
+            },
+            {
+                id: 4,
+                name: '3000 Watt Power Inverter, Car/Outdoor 12V DC to 110V AC',
+                image: '4.jpg',
+                price: 14167.65,
+                descriptionPage: 'description4.html'
+            },
+            {
+                id: 5,
+                name: 'Bosch Electric Mini-Tank Water Heater Tronic 3000 T',
+                image: '5.jpg',
+                price: 19334,
+                descriptionPage: 'description5.html'
+            },
+            {
+                id: 6,
+                name: 'FVSTR Electric Water Heater Smart 2.16 Gallon',
+                image: '6.jpg',
+                price: 8251.06,
+                descriptionPage: 'description6.html'
+            }
+        ];
+        let listCards  = [];
+        function initApp(){
+            products.forEach((value, key) =>{
+                let newDiv = document.createElement('div');
+                newDiv.classList.add('item');
+                newDiv.innerHTML = `
+                    <a href="${value.descriptionPage}"><img src="image/${value.image}"></a>
+                    <div class="title">${value.name}</div>
+                    <div class="price">${value.price.toLocaleString()}</div>
+                    <button onclick="addToCard(${key})">Add To Card</button>`;
+                list.appendChild(newDiv);
+            })
+        }
+        initApp();
+        function addToCard(key){
+            if(listCards[key] == null){
+                listCards[key] = JSON.parse(JSON.stringify(products[key]));
+                listCards[key].quantity = 1;
+            } else {
+                listCards[key].quantity++;
+            }
+            reloadCard();
+        }
+        function reloadCard(){
+            listCard.innerHTML = '';
+            let count = 0;
+            let totalPrice = 0;
+            listCards.forEach((value, key)=>{
+                totalPrice = totalPrice + (value.price * value.quantity);
+                count = count + value.quantity;
+                if(value != null){
+                    let newDiv = document.createElement('li');
+                    newDiv.innerHTML = `
+                        <div><img src="image/${value.image}"/></div>
+                        <div>${value.name}</div>
+                        <div>${(value.price * value.quantity).toLocaleString()}</div>
+                        <div>
+                            <div class="count">${value.quantity}</div>
+                        </div>`;
+                    listCard.appendChild(newDiv);
+                }
+            })
+            total.innerText = totalPrice.toLocaleString();
+            quantity.innerText = count;
+        }
+        
+        total.addEventListener('click', function() {
+            window.location.href = 'address.html';
+        });
+    </script>
+</body>
+</html>

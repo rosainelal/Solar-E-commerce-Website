@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;1,200&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Nunito Sans', sans-serif;
+  background-color: #f8f8f8;
+  background: url(bg.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+#LoginAndRegistrationForm {
+  width: 350px;
+  background: #fff;
+  margin: 50px auto;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 0px 10px 0px #cdcdcd;
+}
+
+#formTitle {
+  text-align: center;
+  padding-top: 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 25px;
+}
+
+#ResetPasswordForm {
+  text-align: center;
+}
+
+.input-container {
+  margin-top: 20px;
+}
+
+.input-text {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #747474;
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 15px;
+  transition: border-color 0.3s;
+}
+
+.input-text:focus {
+  outline: none;
+  border-color: #008d7f;
+}
+
+.Submit-Btn {
+  width: 100%;
+  height: 42px;
+  border: 0px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: bold;
+  
+  transition: all .4s;
+  background: -webkit-linear-gradient(right,#00dbde,#fc00ff);
+  color: #fff;
+}
+
+.Submit-Btn:hover {
+  left: 0;
+}
+
+.already-have-account {
+  font-size: 14px;
+  color: #747474;
+  margin-top: 15px;
+}
+
+.already-have-account a {
+  text-decoration: none;
+  color: #008d7f;
+  font-weight: bold;
+  transition: color 0.4s;
+}
+
+.already-have-account a:hover {
+  color: #002b27;
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance Requests</title>
+    <style>
+        /* Add your CSS styles here */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Maintenance Requests</h1>
+
+    <table id="maintenanceTable">
+        <thead>
+            <tr>
+                <th>Request ID</th>
+                <th>User Name</th>
+                <th>Email Address</th>
+                <th>Contact</th>
+                <th>Request Date</th>
+                <th>Cost</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <!-- Maintenance requests will be dynamically inserted here -->
+        </tbody>
+    </table>
+
+    <script>
+        const maintenanceRequests = [
+            { id: 1, userName: 'John Doe', email: 'johndoe@example.com', contact: '123-456-7890', date: '2024-04-05', cost: '$100' },
+            { id: 2, userName: 'Jane Smith', email: 'janesmith@example.com', contact: '987-654-3210', date: '2024-04-10', cost: '$150' },
+            { id: 3, userName: 'Michael Johnson', email: 'michael@example.com', contact: '555-555-5555', date: '2024-04-15', cost: '$200' }
+        ];
+
+        const tableBody = document.getElementById('tableBody');
+
+        function renderMaintenanceRequests() {
+            tableBody.innerHTML = '';
+            maintenanceRequests.forEach(request => {
+                const row = `
+                    <tr>
+                        <td>${request.id}</td>
+                        <td>${request.userName}</td>
+                        <td>${request.email}</td>
+                        <td>${request.contact}</td>
+                        <td>${request.date}</td>
+                        <td>${request.cost}</td>
+                        <td>
+                            <button class="btn edit-btn" data-id="${request.id}">Edit</button>
+                            <button class="btn delete-btn" data-id="${request.id}">Delete</button>
+                        </td>
+                    </tr>
+                `;
+                tableBody.insertAdjacentHTML('beforeend', row);
+            });
+
+            // Add event listeners to edit and delete buttons
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', handleEditRequest);
+            });
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', handleDeleteRequest);
+            });
+        }
+
+        function handleEditRequest(event) {
+            const requestId = parseInt(event.target.dataset.id);
+            const request = maintenanceRequests.find(req => req.id === requestId);
+            if (request) {
+                const newCost = prompt('Enter new cost:');
+                if (newCost !== null && newCost.trim() !== '') {
+                    request.cost = newCost.trim();
+                    renderMaintenanceRequests();
+                } else {
+                    alert('Invalid cost. Please try again.');
+                }
+            } else {
+                alert('Request not found.');
+            }
+        }
+
+        function handleDeleteRequest(event) {
+            const requestId = parseInt(event.target.dataset.id);
+            const confirmDelete = confirm('Are you sure you want to delete this request?');
+            if (confirmDelete) {
+                const index = maintenanceRequests.findIndex(req => req.id === requestId);
+                if (index !== -1) {
+                    maintenanceRequests.splice(index, 1);
+                    renderMaintenanceRequests();
+                } else {
+                    alert('Request not found.');
+                }
+            }
+        }
+
+        window.addEventListener('load', renderMaintenanceRequests);
+    </script>
+</body>
+</html>

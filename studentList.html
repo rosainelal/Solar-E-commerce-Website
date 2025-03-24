@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        #customerTable {
+            width: 80%;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            overflow-x: auto; /* Enable horizontal scrolling if needed */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #ff0000;
+            color: white;
+        }
+
+        td {
+            white-space: nowrap; /* Prevent text wrapping in cells */
+        }
+
+        .editButton, .deleteButton {
+            background-color: #008CBA;
+            color: white;
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .deleteButton {
+            background-color: #f44336;
+        }
+
+        .editButton:hover, .deleteButton:hover {
+            background-color: #005580;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Customer List</h2>
+
+    <div id="customerTable">
+        <!-- Customer details will be displayed here -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                    <th>Address</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="customerListBody">
+                <!-- Dummy customers -->
+                <tr data-email="meenakshy@example.com">
+                    <td>Meenakshy</td>
+                    <td>meenakshy@example.com</td>
+                    <td>123-456-7890</td>
+                    <td>123 Street, City</td>
+                    <td>
+                        <button class="editButton" onclick="handleEdit(this)">Edit</button>
+                        <button class="deleteButton" onclick="handleDelete('meenakshy@example.com')">Delete</button>
+                    </td>
+                </tr>
+                <tr data-email="rosaine@example.com">
+                    <td>Rosaine</td>
+                    <td>rosaine@example.com</td>
+                    <td>987-654-3210</td>
+                    <td>456 Avenue, Town</td>
+                    <td>
+                        <button class="editButton" onclick="handleEdit(this)">Edit</button>
+                        <button class="deleteButton" onclick="handleDelete('rosaine@example.com')">Delete</button>
+                    </td>
+                </tr>
+                <tr data-email="anita@example.com">
+                    <td>Anita</td>
+                    <td>anita@example.com</td>
+                    <td>567-890-1234</td>
+                    <td>789 Road, Village</td>
+                    <td>
+                        <button class="editButton" onclick="handleEdit(this)">Edit</button>
+                        <button class="deleteButton" onclick="handleDelete('anita@example.com')">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function handleEdit(button) {
+            const row = button.closest('tr');
+            const cells = row.querySelectorAll('td:not(:last-child)');
+            cells.forEach(cell => {
+                const value = cell.textContent;
+                cell.innerHTML = `<input type="text" value="${value}">`;
+            });
+
+            const actionCell = row.querySelector('td:last-child');
+            const editButton = actionCell.querySelector('.editButton');
+            editButton.textContent = 'Save';
+            editButton.classList.add('saveButton');
+            editButton.classList.remove('editButton');
+            editButton.setAttribute('onclick', 'handleSave(this)');
+        }
+
+        function handleSave(button) {
+            const row = button.closest('tr');
+            const cells = row.querySelectorAll('td:not(:last-child)');
+            cells.forEach(cell => {
+                const value = cell.querySelector('input').value;
+                cell.textContent = value;
+            });
+
+            const actionCell = row.querySelector('td:last-child');
+            const saveButton = actionCell.querySelector('.saveButton');
+            saveButton.textContent = 'Edit';
+            saveButton.classList.remove('saveButton');
+            saveButton.classList.add('editButton');
+            saveButton.setAttribute('onclick', 'handleEdit(this)');
+        }
+
+        function handleDelete(email) {
+            // You can implement the delete functionality here
+            alert(`Deleting customer with email: ${email}`);
+            // Perform actual deletion logic here
+        }
+    </script>
+</body>
+
+</html>

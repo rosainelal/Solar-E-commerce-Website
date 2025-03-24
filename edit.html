@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Student</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Edit Student</h2>
+
+    <form id="editForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" required><br>
+
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" rows="4" required></textarea><br>
+
+        <input type="hidden" id="studentId" name="studentId">
+
+        <button type="button" onclick="submitEditForm()">Save Changes</button>
+    </form>
+
+    <script>
+        const studentId = getParameterByName('id');
+        const apiUrl = `http://localhost:4000/getDetailsById?id=${studentId}`;
+        fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('name').value = data.data.name;
+            document.getElementById('email').value = data.data.email;
+            document.getElementById('phone').value = data.data.phone;
+            document.getElementById('address').value = data.data.address;
+            document.getElementById('studentId').value = data.data._id;
+        })
+        .catch(error => {
+            console.error('Error fetching student details:', error);
+        });
+
+        function submitEditForm() {
+            const formData = new FormData(document.getElementById('editForm'));
+            const jsonData = {};
+            formData.forEach((value, key) => {
+                jsonData[key] = value;
+            });
+
+            // Convert JSON data to URL-encoded string
+            const queryString = new URLSearchParams(jsonData).toString();
+
+            const apiUrl = `http://localhost:4000/editDetails?${queryString}`; // Modified to include data in the query parameters
+            fetch(apiUrl, {
+                method: 'GET', // Changed to GET
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('API response:', data);
+                window.location.href = 'studentList.html';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+        function getParameterByName(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!-- results.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+            background-color: rgb(250, 170, 243);
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        #registrationDetails {
+            background: rgba(252, 211, 211, 0.7); /* Semi-transparent background for better readability */
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        p {
+            margin-bottom: 8px;
+        }
+
+        #viewListButton {
+            background-color: #ff0000;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        #viewListButton:hover {
+            background-color: #5345a0;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Registration Results</h2>
+
+    <div id="registrationDetails">
+        <!-- Details will be displayed here -->
+    </div>
+
+    <button id="viewListButton" onclick="redirectToStudentList()">View Customer List</button>
+
+    <script>
+        // Extract query parameters from the URL
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const params = Object.fromEntries(urlSearchParams.entries());
+
+        // Display details on the page
+        const registrationDetailsElement = document.getElementById('registrationDetails');
+        registrationDetailsElement.innerHTML = `
+            
+            <p><strong>Email:</strong> ${params.email}</p>
+            <h2>You are succesfully registered</h2>
+            
+        `;
+
+        // Fetch additional details from the API
+        const apiUrl = 'http://localhost:4000/getDetails'; // replace with your API endpoint
+        fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any other headers as needed
+            },
+        })
+        .then(response => response.json())
+        // .then(data => {
+        //     // Append additional details to the page
+        //     registrationDetailsElement.innerHTML += `
+        //         <p><strong>Additional Detail 1:</strong> ${data.additionalDetail1}</p>
+        //         <p><strong>Additional Detail 2:</strong> ${data.additionalDetail2}</p>
+        //         <!-- Add more details as needed -->d:\s5\wad\NodeJs_With_HTML_\html\studentList.html
+        //     `;
+        // })
+        .catch(error => {
+            console.error('Error fetching details:', error);
+            // Handle errors
+        });
+
+        // Redirect to the student list page
+        function redirectToStudentList() {
+            window.location.href = 'studentList.html';
+        }
+    </script>
+
+</body>
+</html>
